@@ -34,7 +34,7 @@ const userRegister = async (userDets, res) => {
       digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false
     })
     console.log(`OTP: ${OTP}`);    
-    await sendOtp(OTP, userDets.number)
+    await sendOtp(OTP, '+91' + userDets.number)
 
     // get the hashed password
     const hashedPassword = await bcrypt.hash(userDets.password, 12);

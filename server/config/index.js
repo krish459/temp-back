@@ -8,4 +8,7 @@ module.exports = {
   USER: process.env.USER,
   PASS: process.env.PASS,
   SERVICE: process.env.SERVICE,
+  ACCOUNT_SID: process.env.ACCOUNT_SID,
+  AUTH_TOKEN: process.env.AUTH_TOKEN,
+  PHONE_NUMBER: process.env.PHONE_NUMBER
 };
