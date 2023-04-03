@@ -10,5 +10,8 @@ module.exports = {
   SERVICE: process.env.SERVICE,
   ACCOUNT_SID: process.env.ACCOUNT_SID,
   AUTH_TOKEN: process.env.AUTH_TOKEN,
-  PHONE_NUMBER: process.env.PHONE_NUMBER
+  PHONE_NUMBER: process.env.PHONE_NUMBER,
+  CLOUD_NAME: process.env.CLOUD_NAME,
+  CLOUD_API_KEY: process.env.CLOUD_API_KEY,
+  CLOULD_API_SECRET: process.env.CLOULD_API_SECRET
 };

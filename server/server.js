@@ -6,6 +6,7 @@ const db = require("./db");
 const app = express();
 const passport = require("passport");
 const port = process.env.PORT || 8000;
+const fileUpload = require('express-fileupload')
 
 app.use(express.json());
 app.use(cors());
@@ -15,8 +16,12 @@ app.use(passport.initialize());
 require("./middlewares/passport")(passport);
 
 // user router middleware
+app.use(fileUpload({
+  useTempFiles: true
+}))
 app.use("/api/users", require("./routes/userRoute"));
 app.use("/api/items", require("./routes/itemRoute"));
+
 
 
 app.get("/", (req, res) => {
@@ -26,3 +31,5 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+
