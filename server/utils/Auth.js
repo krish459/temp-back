@@ -132,7 +132,7 @@ const verifyEmail = async (req, res) => {
     await User.updateOne({ _id: user._id, confirmed: true });
     await tokenModel.findByIdAndRemove(token._id);
 
-    res.send("Email verify Successfully");
+    res.status(200).send("Email verify Successfully");
   } catch (error) {
     res.status(400).send(`An error occurred ${error}`);
   }
