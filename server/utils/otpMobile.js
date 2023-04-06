@@ -33,18 +33,23 @@ const sendOtp = async (OTP, number) => {
     console.log(`OTP not sent ${error}`);
   }
 };
+
 const verifyOtp = async (OTP, number, req, res) => {
   try {
     
     const otpHolder = await Otp.find({
-      number: number,
+      number: "+91" + number,
     });
+    // console.log(otpHolder.length)
     if (otpHolder.length === 0)
       return res.status(400).send("You are using an Expired OTP!");
     const rightOtpFind = otpHolder[otpHolder.length - 1];
     const validUser = await bcrypt.compare(OTP, rightOtpFind.otp);
 
-    if (rightOtpFind.number === req.body.number && validUser) {
+    // console.log(validUser)
+    // console.log(rightOtpFind.number)
+    // console.log(req.body.number)
+    if (rightOtpFind.number === '+91'+ req.body.number && validUser) {
       const user = new User(_.pick(req.body, ["number"]));
       
       const token = user.generateJWT();

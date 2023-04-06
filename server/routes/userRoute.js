@@ -127,7 +127,7 @@ router.post("/login", async (req, res) => {
  *   description: User verification API
  *
  * @swagger
- * /verify/{id}/{token}:
+ * /api/users/verify/{id}/{token}:
  *   get:
  *     summary: Verify user email
  *     tags: [Verifications]
@@ -175,7 +175,7 @@ router.get("/verify/:id/:token",async(req,res)=>{
  *           type: string
  *
  * @swagger
- * /verify/otp:
+ * /api/users/verify/otp:
  *   post:
  *     summary: Verify User Number 
  *     tags: [Verifications]
