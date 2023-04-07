@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { SECRET } = require("../config");
+const { SECRET, PROXY } = require("../config");
 const passport = require("passport");
 const tokenModel = require("../models/tokenModel");
 const shortId = require("shortid");
@@ -29,6 +29,13 @@ const userRegister = async (userDets, res) => {
         success: false,
       });
     }
+    let numberRegistered = await validateNumber(userDets.number);
+    if (!numberRegistered) {
+      return res.status(400).json({
+        message: `Number is already registered.`,
+        success: false,
+      });
+    }
 
     const OTP = otpGenerator.generate(6, {
       digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false
@@ -51,7 +58,7 @@ const userRegister = async (userDets, res) => {
       token: shortId.generate(),
     }).save();
 
-    const message = `http://localhost:5000/api/users/verify/${newUser._id}/${token.token}$`;
+    const message = `${PROXY}/api/users/verify/${newUser._id}/${token.token}$`;
 
     await sendEmail(newUser.email, "verify Email", message);
     // await sendMagicLinkEmail(newUser.email, "verify Email", message);
@@ -81,6 +88,12 @@ const userLogin = async (userCreds, res) => {
   if (!user.confirmed) {
     return res.status(404).json({
       message: "Please confirm your email to login",
+      success: false,
+    });
+  }
+  if (!user.otpConfirmed) {
+    return res.status(404).json({
+      message: "Please confirm your Number to login",
       success: false,
     });
   }
@@ -148,6 +161,10 @@ const userAuth = passport.authenticate("jwt", { session: false });
 
 const validateEmail = async (email) => {
   let user = await User.findOne({ email });
+  return user ? false : true;
+};
+const validateNumber = async (number) => {
+  let user = await User.findOne({ number });
   return user ? false : true;
 };
 

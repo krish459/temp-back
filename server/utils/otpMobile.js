@@ -51,11 +51,12 @@ const verifyOtp = async (OTP, number, req, res) => {
     // console.log(req.body.number)
     if (rightOtpFind.number === '+91'+ req.body.number && validUser) {
       const user = new User(_.pick(req.body, ["number"]));
-      
       const token = user.generateJWT();
       
       const result = user;
       
+      await User.updateOne({ number: user.number }, { otpConfirmed: true });
+
       const OTPDelete = await Otp.deleteMany({
         number: rightOtpFind.number,
       });

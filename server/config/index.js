@@ -13,5 +13,6 @@ module.exports = {
   PHONE_NUMBER: process.env.PHONE_NUMBER,
   CLOUD_NAME: process.env.CLOUD_NAME,
   CLOUD_API_KEY: process.env.CLOUD_API_KEY,
-  CLOULD_API_SECRET: process.env.CLOULD_API_SECRET
+  CLOULD_API_SECRET: process.env.CLOULD_API_SECRET,
+  PROXY: process.env.PROXY
 };
